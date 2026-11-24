@@ -2,6 +2,18 @@
   let videoId = null;
   let generation = 0;
 
+  // Stop the hover signals that start YouTube's inline player. Leave link
+  // activation, keyboard navigation and context menus to the native anchors.
+  const videoCard = ":is(ytd-browse, ytd-search) :is(ytd-rich-item-renderer, ytd-video-renderer, ytd-grid-video-renderer, yt-lockup-view-model)";
+  function suppressCardHover(event) {
+    if (event.target instanceof Element && event.target.closest(videoCard)) {
+      event.stopImmediatePropagation();
+    }
+  }
+  for (const type of ["pointerover", "pointerenter", "pointermove", "mouseover", "mouseenter", "mousemove"]) {
+    window.addEventListener(type, suppressCardHover, {capture: true, passive: true});
+  }
+
   function activeId() {
     return location.pathname === "/watch" ? new URLSearchParams(location.search).get("v") : null;
   }

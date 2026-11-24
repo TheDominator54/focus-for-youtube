@@ -1,5 +1,9 @@
 # Release notes
 
+## 0.1.11
+
+Keep feed and search thumbnails static on hover and preserve native video links.
+
 ## 0.1.10
 
 Hide the expandable metadata attachments in the newer search result layout, including collapsed summaries and chapter strips.

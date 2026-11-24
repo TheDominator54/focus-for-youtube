@@ -191,3 +191,11 @@ ytd-expandable-metadata-renderer[has-video-summary] {
 ytd-search :is(.ytLockupAttachmentsViewModelExpandableMetadata, yt-expandable-metadata-view-model) {
   display: none !important;
 }
+
+/* Keep browsing cards as static links, including CSS-only hover actions. */
+:is(ytd-browse, ytd-search) :is(ytd-rich-item-renderer, ytd-video-renderer,
+  ytd-grid-video-renderer, yt-lockup-view-model) :is(
+  ytd-thumbnail-overlay-toggle-button-renderer, yt-thumbnail-hover-overlay-view-model,
+  yt-thumbnail-hover-overlay-toggle-actions-view-model, ytd-moving-thumbnail-renderer,
+  ytd-menu-renderer, .ytLockupMetadataViewModelMenuButton, .yt-lockup-metadata-view-model__menu-button
+) { display: none !important; }
