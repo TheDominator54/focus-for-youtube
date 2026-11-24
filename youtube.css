@@ -177,3 +177,12 @@ ytd-search yt-lockup-view-model :is(.yt-lockup-metadata-view-model__description,
   .ytDescriptionPreviewViewModelHost) {
   display: none !important;
 }
+
+/* The collapsed header exists before the summary body is mounted. Result
+   cards can also be reused outside the ytd-search page wrapper. */
+ytd-video-renderer #expandable-metadata,
+ytd-video-renderer ytd-expandable-metadata-renderer,
+ytd-expandable-metadata-renderer:has(#prominent-collapsed-label #prominent-label-text),
+ytd-expandable-metadata-renderer[has-video-summary] {
+  display: none !important;
+}
