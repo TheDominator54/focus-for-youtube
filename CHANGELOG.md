@@ -1,5 +1,9 @@
 # Release notes
 
+## 0.1.13
+
+Keep search results and their gutters inside the viewport while allowing native horizontal history gestures.
+
 ## 0.1.12
 
 Hide Shorts grid shelves, including their headings, in YouTube search results.

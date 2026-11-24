@@ -100,7 +100,15 @@ ytd-watch-flexy :is(#secondary, #comments, #related, #actions, #ticket-shelf, #m
   ytd-live-chat-frame, ytd-watch-next-secondary-results-renderer, .ytp-endscreen-content,
   .ytp-ce-element, .ytp-autonav-toggle-button-container) { display: none !important; }
 ytd-search :is(ytd-search-header-renderer, #expandable-metadata, #secondary) { display: none !important; }
-ytd-search :is(#container, ytd-two-column-search-results-renderer, #primary) { max-width: none !important; }
+ytd-search, ytd-search > #container, ytd-search ytd-two-column-search-results-renderer,
+ytd-search ytd-two-column-search-results-renderer > #primary {
+  box-sizing: border-box !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  margin-inline: 0 !important;
+}
+ytd-search { overflow-x: clip !important; }
 ytd-search > #container { padding: 16px 20px !important; }
 ytd-search :is(ytd-video-renderer ytd-thumbnail, ytd-channel-renderer #avatar-section,
   yt-lockup-view-model .ytLockupViewModelContentImage) { flex: 0 0 250px !important; width: 250px !important; max-width: 250px !important; }
