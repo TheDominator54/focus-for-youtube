@@ -1,6 +1,6 @@
 # Focus for YouTube privacy policy
 
-Effective November 24, 2026, for version 0.1.7.
+Effective November 24, 2026.
 
 Focus runs on desktop pages at www.youtube.com. It reads the page layout and playback state to filter the feed, simplify the player, and skip registered segments. It reads the video ID from the current watch URL. The extension keeps the current segment list in memory. It has no account system, analytics, advertising, or persistent watch-history storage.
 
