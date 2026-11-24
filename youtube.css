@@ -1,6 +1,6 @@
 html, body, ytd-app {
   overflow-x: clip !important;
-  overscroll-behavior-x: none !important;
+  overscroll-behavior-x: auto !important;
 }
 
 /* Site chrome */
@@ -167,4 +167,13 @@ ytd-app :is(ytd-rich-item-renderer, ytd-video-renderer, yt-lockup-view-model, yt
 }
 ytd-app :is(#video-title, .ytLockupMetadataViewModelTitle, ytd-watch-metadata h1) {
   color: #f1f1f1 !important;
+}
+
+/* Search cards keep their title, channel and stats. YouTube also puts
+   timestamped excerpts in the description slot, outside the summary panel. */
+ytd-search ytd-video-renderer :is(#description-text, .metadata-snippet-container),
+ytd-search yt-lockup-view-model :is(.yt-lockup-metadata-view-model__description,
+  .ytLockupMetadataViewModelDescription, yt-description-preview-view-model,
+  .ytDescriptionPreviewViewModelHost) {
+  display: none !important;
 }
