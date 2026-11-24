@@ -199,3 +199,9 @@ ytd-search :is(.ytLockupAttachmentsViewModelExpandableMetadata, yt-expandable-me
   yt-thumbnail-hover-overlay-toggle-actions-view-model, ytd-moving-thumbnail-renderer,
   ytd-menu-renderer, .ytLockupMetadataViewModelMenuButton, .yt-lockup-metadata-view-model__menu-button
 ) { display: none !important; }
+
+/* Modern search results group Shorts in a grid shelf with its own header. */
+ytd-search grid-shelf-view-model:has(ytm-shorts-lockup-view-model, ytm-shorts-lockup-view-model-v2),
+ytd-search :is(ytm-shorts-lockup-view-model, ytm-shorts-lockup-view-model-v2) {
+  display: none !important;
+}

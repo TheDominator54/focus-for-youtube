@@ -1,5 +1,9 @@
 # Release notes
 
+## 0.1.12
+
+Hide Shorts grid shelves, including their headings, in YouTube search results.
+
 ## 0.1.11
 
 Keep feed and search thumbnails static on hover and preserve native video links.
