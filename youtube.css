@@ -1,0 +1,170 @@
+html, body, ytd-app {
+  overflow-x: clip !important;
+  overscroll-behavior-x: none !important;
+}
+
+/* Site chrome */
+html, body, ytd-app, ytd-watch-flexy, ytd-browse {
+  background-color: black !important;
+}
+ytd-app {
+  --yt-spec-base-background: #000;
+  --yt-spec-text-primary: #f1f1f1;
+  --yt-spec-text-secondary: #aaa;
+  --ytd-mini-guide-width: 0px !important;
+  --ytd-guide-width: 0px !important;
+  --ytd-masthead-height: 0px !important;
+}
+#masthead-container, ytd-masthead, #frosted-glass, #guide, ytd-mini-guide-renderer {
+  display: none !important;
+}
+ytd-app #page-manager {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* Native grids keep their continuation sentinel for infinite scrolling. */
+ytd-browse:is([page-subtype="home"], [page-subtype="channels"], [page-subtype="subscriptions"]) {
+  & :is(ytd-two-column-browse-results-renderer, ytd-two-column-browse-results-renderer > #primary, ytd-rich-grid-renderer) {
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+  }
+  & ytd-rich-grid-renderer {
+    --ytd-rich-grid-items-per-row: 6 !important;
+    --ytd-rich-grid-chips-bar-height: 0px !important;
+    padding: 0 !important;
+  }
+  & ytd-rich-grid-renderer > #contents {
+    display: grid !important;
+    grid-template-columns: repeat(6, minmax(0, 1fr)) !important;
+    gap: 28px 16px !important;
+    padding: 10px 20px 0 !important;
+    margin: 0 !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  & ytd-rich-grid-row, & ytd-rich-grid-row > #contents { display: contents !important; }
+  & ytd-rich-item-renderer {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: none !important;
+    margin: 0 !important;
+    scale: 1 !important;
+  }
+  & ytd-continuation-item-renderer { grid-column: 1 / -1; }
+  & :is(ytd-rich-section-renderer, ytd-feed-filter-chip-bar-renderer, #masthead-ad,
+    ytd-rich-grid-renderer > #header, #avatar-link, .yt-lockup-metadata-view-model__avatar,
+    .ytLockupMetadataViewModelAvatar, ytd-menu-renderer, .ytLockupMetadataViewModelMenuButton,
+    .yt-lockup-metadata-view-model__menu-button, ytd-thumbnail-overlay-toggle-button-renderer,
+    yt-thumbnail-hover-overlay-toggle-actions-view-model) { display: none !important; }
+  & :is(#video-title, .yt-lockup-metadata-view-model__title, .ytLockupMetadataViewModelTitle) {
+    font-size: 16px !important;
+    line-height: 1.35 !important;
+  }
+}
+ytd-browse[page-subtype="channels"] > :is(#header, #page-header-portal-channels) { display: none !important; }
+
+:is(ytd-browse, ytd-search) :is(ytd-rich-item-renderer, ytd-video-renderer, ytd-grid-video-renderer, yt-lockup-view-model):has(
+  a[href^="/shorts/"], a[href^="/playlist?"], a[href*="/watch?"][href*="list="],
+  ytd-ad-slot-renderer, ytd-playlist-renderer, ytd-radio-renderer, [overlay-style="UPCOMING"],
+  [aria-label="Upcoming" i], [aria-label*="Premieres " i], [aria-label*="Scheduled for " i],
+  [aria-label="Notify me" i], [title="Notify me" i]
+), ytd-reel-shelf-renderer, ytd-search ytd-shelf-renderer:has(a[href^="/shorts/"]) { display: none !important; }
+
+/* Keep the full-height player in document flow. */
+ytd-watch-flexy:not([fullscreen]) {
+  & :is(#columns, #primary, #primary-inner, #full-bleed-container, #player-theater-container, #player-container-outer) {
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  & #columns { display: block !important; }
+  &:not([theater]) #player-container-outer:has(#movie_player),
+  &[theater] :is(#full-bleed-container, #player-theater-container):has(#movie_player) {
+    position: relative !important;
+    height: 100dvh !important;
+    max-height: none !important;
+    min-height: 0 !important;
+    background: black;
+  }
+  & :is(#player, #player-container, #player-container-inner):has(#movie_player) {
+    width: 100% !important;
+    height: 100% !important;
+    max-height: none !important;
+    padding: 0 !important;
+  }
+}
+ytd-watch-flexy :is(#secondary, #comments, #related, #actions, #ticket-shelf, #merch-shelf,
+  ytd-live-chat-frame, ytd-watch-next-secondary-results-renderer, .ytp-endscreen-content,
+  .ytp-ce-element, .ytp-autonav-toggle-button-container) { display: none !important; }
+ytd-search :is(ytd-search-header-renderer, #expandable-metadata, #secondary) { display: none !important; }
+ytd-search :is(#container, ytd-two-column-search-results-renderer, #primary) { max-width: none !important; }
+ytd-search > #container { padding: 16px 20px !important; }
+ytd-search :is(ytd-video-renderer ytd-thumbnail, ytd-channel-renderer #avatar-section,
+  yt-lockup-view-model .ytLockupViewModelContentImage) { flex: 0 0 250px !important; width: 250px !important; max-width: 250px !important; }
+
+/* The metadata row normally bleeds into YouTube's outer page gutters. */
+ytd-watch-metadata #bottom-row {
+  margin-inline: 0 !important;
+  max-width: 100% !important;
+  box-sizing: border-box;
+}
+ytd-watch-metadata #bottom-actions,
+ytd-watch-flexy :is(#cinematics-container, #cinematics),
+#movie_player :is(button.ytp-size-button, button.ytp-autonav-toggle, button:has(.ytp-autonav-toggle-button)) {
+  display: none !important;
+}
+ytd-watch-flexy #movie_player { background-color: black !important; }
+
+/* Follow the native seek bar as the player resizes. Let clicks pass through. */
+.focus-segments {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 35;
+}
+.focus-segments > span {
+  position: absolute;
+  bottom: 0;
+  height: 3px;
+  background: #00d400;
+}
+.focus-segments > [data-category="selfpromo"] { background: #ffff00; }
+.focus-segments > [data-category="intro"] { background: #00ffff; }
+.focus-segments > [data-category="outro"] { background: #0202ed; }
+.focus-segments > [data-category="interaction"] { background: #cc00ff; }
+.focus-segments > [data-category="preview"] { background: #008fd6; }
+.focus-segments > [data-category="hook"] { background: #395fc0; }
+#movie_player:is(.ad-showing, .ad-interrupting) .focus-segments { display: none; }
+
+#movie_player :is(.html5-endscreen, .ytp-fullscreen-grid-stills-container,
+  .ytp-videowall-still, .ytp-autonav-endscreen-upnext-container) {
+  display: none !important;
+}
+ytd-search :is(video-summary-content-view-model,
+  ytd-expandable-metadata-renderer[has-video-summary],
+  ytd-expandable-metadata-renderer:has(video-summary-content-view-model)) {
+  display: none !important;
+}
+
+/* Some search layouts mount the summary outside the expandable metadata slot. */
+.videoSummaryContentViewModelHostIsSearch,
+ytd-search :is(.videoSummaryContentViewModelHost, [has-video-summary],
+  [aria-label="AI summary" i], [aria-label="AI-generated summary" i]),
+ytd-search :is(ytd-expandable-metadata-renderer, yt-expandable-metadata-view-model,
+  yt-horizontal-card-list-renderer):has(:is(.videoSummaryContentViewModelHost,
+  button[aria-label="Like this summary" i])) {
+  display: none !important;
+}
+
+/* Keep the forced black layout readable in YouTube's light theme. */
+ytd-app :is(ytd-rich-item-renderer, ytd-video-renderer, yt-lockup-view-model, ytd-watch-metadata) {
+  --yt-spec-text-primary: #f1f1f1 !important;
+  --yt-spec-text-secondary: #aaa !important;
+  color: #f1f1f1;
+}
+ytd-app :is(#video-title, .ytLockupMetadataViewModelTitle, ytd-watch-metadata h1) {
+  color: #f1f1f1 !important;
+}

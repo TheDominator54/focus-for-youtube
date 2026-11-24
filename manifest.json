@@ -1,0 +1,42 @@
+{
+  "manifest_version": 3,
+  "name": "Focus for YouTube",
+  "version": "0.1.7",
+  "description": "A six-column video feed, an edge-to-edge player, and quiet sponsor skipping.",
+  "host_permissions": [
+    "https://sponsor.ajay.app/*"
+  ],
+  "background": {
+    "service_worker": "segments.js"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://www.youtube.com/*"
+      ],
+      "run_at": "document_start",
+      "world": "MAIN",
+      "js": [
+        "playback.js"
+      ]
+    },
+    {
+      "matches": [
+        "https://www.youtube.com/*"
+      ],
+      "run_at": "document_start",
+      "css": [
+        "youtube.css"
+      ],
+      "js": [
+        "youtube.js"
+      ]
+    }
+  ],
+  "icons": {
+    "16": "icons/16.png",
+    "32": "icons/32.png",
+    "48": "icons/48.png",
+    "128": "icons/128.png"
+  }
+}
