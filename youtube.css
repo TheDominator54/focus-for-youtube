@@ -186,3 +186,8 @@ ytd-expandable-metadata-renderer:has(#prominent-collapsed-label #prominent-label
 ytd-expandable-metadata-renderer[has-video-summary] {
   display: none !important;
 }
+
+/* The lockup search layout renders its collapsed attachments before their contents. */
+ytd-search :is(.ytLockupAttachmentsViewModelExpandableMetadata, yt-expandable-metadata-view-model) {
+  display: none !important;
+}

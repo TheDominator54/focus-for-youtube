@@ -1,5 +1,9 @@
 # Release notes
 
+## 0.1.10
+
+Hide the expandable metadata attachments in the newer search result layout, including collapsed summaries and chapter strips.
+
 ## 0.1.9
 
 Hide the collapsed Summary header on video results, including cards rendered outside the search-page wrapper.
