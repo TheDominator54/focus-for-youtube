@@ -14,6 +14,36 @@
     window.addEventListener(type, suppressCardHover, {capture: true, passive: true});
   }
 
+  const channelCard = "ytd-rich-item-renderer, ytd-grid-video-renderer, ytd-video-renderer, yt-lockup-view-model";
+  function filterMembership(card) {
+    const text = document.createTreeWalker(card, NodeFilter.SHOW_TEXT);
+    let restricted = false;
+    while (text.nextNode()) {
+      if (/^members[\s-]+only$/i.test(text.currentNode.data.trim()) &&
+          !text.currentNode.parentElement.closest("a, h3, #video-title, [role=heading], [hidden]")) {
+        restricted = true;
+        break;
+      }
+    }
+    card.toggleAttribute("data-focus-members-only", restricted);
+  }
+
+  const membershipObserver = new MutationObserver(records => {
+    const cards = new Set();
+    for (const record of records) {
+      const target = record.target.nodeType === Node.TEXT_NODE ? record.target.parentElement : record.target;
+      const card = target?.closest?.(channelCard);
+      if (card) cards.add(card.closest("ytd-rich-item-renderer") || card);
+      for (const node of record.addedNodes) {
+        if (!(node instanceof Element)) continue;
+        if (node.matches(channelCard)) cards.add(node);
+        for (const child of node.querySelectorAll(channelCard)) cards.add(child);
+      }
+    }
+    for (const card of cards) filterMembership(card.closest("ytd-rich-item-renderer") || card);
+  });
+
+  let filteringChannel = false;
   function activeId() {
     return location.pathname === "/watch" ? new URLSearchParams(location.search).get("v") : null;
   }
@@ -33,6 +63,17 @@
     if (/^\/(?:@[^/]+|(?:channel|c|user)\/[^/]+)\/?$/.test(path)) {
       location.replace(path.replace(/\/$/, "") + "/videos" + location.search + location.hash);
       return;
+    }
+    const channel = /^\/(?:@[^/]+|(?:channel|c|user)\/[^/]+)(?:\/|$)/.test(path);
+    if (channel !== filteringChannel) {
+      filteringChannel = channel;
+      membershipObserver.disconnect();
+      if (channel) {
+        membershipObserver.observe(document, {subtree: true, childList: true, characterData: true});
+        document.querySelectorAll(channelCard).forEach(card => filterMembership(card.closest("ytd-rich-item-renderer") || card));
+      } else {
+        document.querySelectorAll("[data-focus-members-only]").forEach(card => card.removeAttribute("data-focus-members-only"));
+      }
     }
     const id = activeId();
     if (id !== videoId) {

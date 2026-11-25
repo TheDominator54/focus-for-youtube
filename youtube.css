@@ -65,6 +65,13 @@ ytd-browse:is([page-subtype="home"], [page-subtype="channels"], [page-subtype="s
 }
 ytd-browse[page-subtype="channels"] > :is(#header, #page-header-portal-channels) { display: none !important; }
 
+[data-focus-members-only],
+ytd-browse[page-subtype="channels"] :is(ytd-rich-item-renderer, ytd-video-renderer,
+  ytd-grid-video-renderer, yt-lockup-view-model):has(
+  .badge-style-type-members-only, .ytBadgeShapeTypeMembership, .yt-badge-shape--membership,
+  [aria-label="Members only" i], [title="Members only" i]
+) { display: none !important; }
+
 :is(ytd-browse, ytd-search) :is(ytd-rich-item-renderer, ytd-video-renderer, ytd-grid-video-renderer, yt-lockup-view-model):has(
   a[href^="/shorts/"], a[href^="/playlist?"], a[href*="/watch?"][href*="list="],
   ytd-ad-slot-renderer, ytd-playlist-renderer, ytd-radio-renderer, [overlay-style="UPCOMING"],
@@ -126,6 +133,26 @@ ytd-watch-flexy :is(#cinematics-container, #cinematics),
 }
 ytd-watch-flexy #movie_player { background-color: black !important; }
 
+/* Keep the category attached to the native preview as it moves near either edge. */
+.focus-preview-category {
+  position: absolute;
+  z-index: 1000;
+  transform: translateX(-50%);
+  width: max-content;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, .4);
+  color: white;
+  font: inherit;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+#movie_player[data-focus-skip-ended]:not(.ad-showing, .ad-interrupting)
+  :is(.html5-video-container, video, .ytp-spinner, .ytp-cued-thumbnail-overlay, .ytp-caption-window-container) {
+  visibility: hidden !important;
+}
+
 /* Follow the native seek bar as the player resizes. Let clicks pass through. */
 .focus-segments {
   position: absolute;
@@ -135,8 +162,8 @@ ytd-watch-flexy #movie_player { background-color: black !important; }
 }
 .focus-segments > span {
   position: absolute;
-  bottom: 0;
-  height: 3px;
+  top: var(--marker-top, 0%);
+  height: var(--marker-height, 100%);
   background: #00d400;
 }
 .focus-segments > [data-category="selfpromo"] { background: #ffff00; }

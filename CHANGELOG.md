@@ -1,5 +1,15 @@
 # Release notes
 
+## 0.1.14
+
+Pause on black when an automatic segment skip reaches the end of a video.
+
+Hide members-only video cards on channel pages.
+
+Scrubbing into a marked segment lets it play through.
+
+Match SponsorBlock markers to the native seek bar and show the skip category beneath the chapter title in the seek preview.
+
 ## 0.1.13
 
 Keep search results and their gutters inside the viewport while allowing native horizontal history gestures.
